@@ -151,7 +151,8 @@ class Conv3D_tied(Layer):
         self.built = True
 
     def call(self, inputs):
-        self.kernel = K.permute_dimensions(self.tied_to.get_weights()[0], (2, 0, 1, 4, 3))
+        self.kernel = K.reverse(K.permute_dimensions(self.tied_to.get_weights()[0], (0, 1, 2, 4, 3)), axes=(0, 1, 2))
+        
         outputs = K.conv3d(
             inputs,
             self.kernel,
@@ -198,7 +199,6 @@ class Conv3D_tied(Layer):
 
     def get_config(self):
         config = {
-            'rank': self.rank,
             'filters': self.filters,
             'kernel_size': self.kernel_size,
             'strides': self.strides,
