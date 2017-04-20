@@ -4,9 +4,10 @@ from keras.utils import conv_utils
 from keras.engine import InputSpec
 import keras.backend as K
 from keras import activations, initializers, constraints, regularizers
+import tensorflow as tf
 
 
-class Conv3D_tied(Layer):
+class Conv3DTied(Layer):
     """3D convolution layer (e.g. spatial convolution over volumes) with tied weights.
 
     This layer creates a convolution kernel that is convolved
@@ -107,7 +108,7 @@ class Conv3D_tied(Layer):
                  bias_constraint=None,
                  **kwargs):
 
-        super(Conv3D_tied, self).__init__(**kwargs)
+        super(Conv3DTied, self).__init__(**kwargs)
         self.rank = rank
         self.tied_to = tied_to
         self.kernel_size = conv_utils.normalize_tuple(kernel_size, rank, 'kernel_size')
@@ -215,5 +216,5 @@ class Conv3D_tied(Layer):
             'kernel_constraint': constraints.serialize(self.kernel_constraint),
             'bias_constraint': constraints.serialize(self.bias_constraint)
         }
-        base_config = super(_Conv, self).get_config()
+        base_config = super(Conv3DTied, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))

@@ -1,5 +1,5 @@
 from keras.layers import Conv3D, MaxPool3D, UpSampling3D, Input
-from conv3d_tied import Conv3D_tied
+from conv3dtied import Conv3DTied
 from keras.models import Model
 
 
@@ -63,7 +63,7 @@ class Stacked3DCAE(object):
     @staticmethod
     def build_layer_block_decoding(input_layer, deconv_params, upsample_params, tied_layer, i=1):
         x = UpSampling3D(name='dec_upsample{}'.format(i), **upsample_params)(input_layer)
-        return Conv3D_tied(name='dec_deconv{}'.format(i), tied_to=tied_layer, **deconv_params)(x)
+        return Conv3DTied(name='dec_deconv{}'.format(i), tied_to=tied_layer, **deconv_params)(x)
 
     def summary(self):
         self.autoencoder.summary()
