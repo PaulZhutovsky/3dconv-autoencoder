@@ -4,7 +4,6 @@ from keras.utils import conv_utils
 from keras.engine import InputSpec
 import keras.backend as K
 from keras import activations, initializers, constraints, regularizers
-import tensorflow as tf
 
 
 class Conv3DTied(Layer):
